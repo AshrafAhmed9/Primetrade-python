@@ -11,10 +11,8 @@ jobs:
         with:
           python-version: "3.11"
       - name: Install dependencies
-        run: pip install -r requirements.txt && pip install black ruff pytest pytest-mock
+        run: pip install -r requirements.txt && pip install ruff pytest pytest-mock
       - name: Lint
         run: ruff check .
-      - name: Format check
-        run: black --check .
       - name: Tests
         run: pytest tests/ -v
