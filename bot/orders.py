@@ -20,12 +20,17 @@ def place_order(client: BinanceFuturesClient, req: OrderRequest) -> dict:
     params = req.to_api_params()
     logger.info(
         "Placing %s %s order: %s qty=%s price=%s",
-        req.order_type.value, req.side.value, req.symbol, req.quantity, req.price,
+        req.order_type.value,
+        req.side.value,
+        req.symbol,
+        req.quantity,
+        req.price,
     )
     response = client.place_order(params)
     logger.info(
         "Order accepted: orderId=%s status=%s",
-        response.get("orderId"), response.get("status"),
+        response.get("orderId"),
+        response.get("status"),
     )
     _log_trade(req, response)
     return response
@@ -47,26 +52,24 @@ def place_stop_order(
 
     logger.info(
         "Watching %s for %s STOP at stop_price=%s (timeout=%ds)",
-        req.symbol, req.side.value, stop_price, timeout,
+        req.symbol,
+        req.side.value,
+        stop_price,
+        timeout,
     )
 
     while time.time() < deadline:
         current_price = client.get_price(req.symbol)
-        triggered = (
-            (req.side == Side.BUY and current_price >= stop_price) or
-            (req.side == Side.SELL and current_price <= stop_price)
+        triggered = (req.side == Side.BUY and current_price >= stop_price) or (
+            req.side == Side.SELL and current_price <= stop_price
         )
         logger.debug("price=%s stop=%s triggered=%s", current_price, stop_price, triggered)
         if triggered:
-            logger.info(
-                "STOP triggered: price=%s crossed stop=%s", current_price, stop_price
-            )
+            logger.info("STOP triggered: price=%s crossed stop=%s", current_price, stop_price)
             break
         time.sleep(poll_interval)
     else:
-        raise TimeoutError(
-            f"Stop not triggered within {timeout}s. Last price: {current_price}"
-        )
+        raise TimeoutError(f"Stop not triggered within {timeout}s. Last price: {current_price}")
 
     market_req = OrderRequest(
         symbol=req.symbol,
@@ -77,7 +80,8 @@ def place_stop_order(
     response = client.place_order(market_req.to_api_params())
     logger.info(
         "Stop order executed: orderId=%s status=%s",
-        response.get("orderId"), response.get("status"),
+        response.get("orderId"),
+        response.get("status"),
     )
     _log_trade(req, response)
     return response

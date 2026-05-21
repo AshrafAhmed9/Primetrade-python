@@ -1,4 +1,3 @@
-
 from bot.logging_config import redact_sensitive
 
 

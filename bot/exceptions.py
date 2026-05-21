@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+
 class TradingBotError(Exception):
     """Base for all trading bot errors."""
 

@@ -49,11 +49,23 @@ examples:
     parser.add_argument("--order-type", dest="order_type", help="MARKET, LIMIT, or STOP")
     parser.add_argument("--quantity", help="Order quantity (e.g. 0.002)")
     parser.add_argument("--price", default=None, help="Limit price (required for LIMIT)")
-    parser.add_argument("--stop-price", dest="stop_price", default=None, help="Stop trigger price (required for STOP)")
-    parser.add_argument("--watch-timeout", dest="watch_timeout", type=int, default=60,
-                        help="Seconds to watch price for STOP orders (default: 60)")
+    parser.add_argument(
+        "--stop-price",
+        dest="stop_price",
+        default=None,
+        help="Stop trigger price (required for STOP)",
+    )
+    parser.add_argument(
+        "--watch-timeout",
+        dest="watch_timeout",
+        type=int,
+        default=60,
+        help="Seconds to watch price for STOP orders (default: 60)",
+    )
     parser.add_argument("--check-auth", action="store_true", help="Verify API credentials and exit")
-    parser.add_argument("--dry-run", action="store_true", help="Validate and preview order without placing it")
+    parser.add_argument(
+        "--dry-run", action="store_true", help="Validate and preview order without placing it"
+    )
     return parser.parse_args(argv)
 
 
