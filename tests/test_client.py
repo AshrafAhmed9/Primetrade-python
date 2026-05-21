@@ -1,7 +1,4 @@
-import pytest
-import requests
 
-from bot.exceptions import BinanceAPIError, NetworkError
 from bot.logging_config import redact_sensitive
 
 
