@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Trading Bot v1.0 — Binance Futures Testnet"""
 from __future__ import annotations
+
 import argparse
 import logging
 import os
